@@ -11,7 +11,7 @@ export default function EventsPage() {
           key={event.id}
           className="flex flex-col w-full overflow-hidden bg-zinc-800 rounded-lg"
         >
-          <div className="relative w-full h-44">
+          <div className="relative w-full h-52">
             <Image
               src={event.image}
               fill
@@ -19,11 +19,9 @@ export default function EventsPage() {
               className="object-cover"
             />
           </div>
-          <div className="flex-1 flex flex-col items-center p-7 gap-5">
+          <div className="flex-1 flex flex-col items-center p-7 gap-5 text-center">
             <span className="text-lg font-black">{event.name}</span>
-            <p className="flex-1 text-sm text-zinc-400 text-center">
-              {event.description}
-            </p>
+            <p className="flex-1 text-sm text-zinc-400">{event.description}</p>
             <QRCode
               value={JSON.stringify({ id: event.id, password: event.password })}
               className="w-44 h-44"
