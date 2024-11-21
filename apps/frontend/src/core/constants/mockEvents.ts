@@ -1,6 +1,6 @@
-import { Event } from "../event";
+import { IEvent } from "../event";
 
-const events: Event[] = [
+const events: IEvent[] = [
   {
     id: "xdlhnq5lwm-esmllp6nie-hzgl0ajulz7",
     alias: "evento-fullstack",
