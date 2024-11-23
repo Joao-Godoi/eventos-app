@@ -1,4 +1,4 @@
-import Logo from "@/components/shared/templates/Logo";
+import LogoHome from "@/components/shared/templates/LogoHome";
 import Link from "next/link";
 
 export default function Home() {
@@ -10,7 +10,7 @@ export default function Home() {
     "
     >
       <div className="flex flex-col items-center gap-4">
-        <Logo />
+        <LogoHome />
         <p className="text-zinc-500 font-light w-96 leading-6 text-center">
           Crie e gerencie seus eventos de forma simples e eficiente.
         </p>
