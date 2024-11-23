@@ -1,4 +1,4 @@
-import { events } from "@/core";
+import { mockEvents } from "@/core";
 import Image from "next/image";
 import Link from "next/link";
 import QRCode from "react-qr-code";
@@ -6,7 +6,7 @@ import QRCode from "react-qr-code";
 export default function EventsPage() {
   return (
     <div className="grid grid-cols-3 gap-5">
-      {events.map((event) => (
+      {mockEvents.map((event) => (
         <div
           key={event.id}
           className="flex flex-col w-full overflow-hidden bg-zinc-800 rounded-lg"

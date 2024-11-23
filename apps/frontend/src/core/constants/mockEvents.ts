@@ -1,11 +1,11 @@
 import { IEvent } from "../event";
 
-const events: IEvent[] = [
+const mockEvents: IEvent[] = [
   {
     id: "xdlhnq5lwm-esmllp6nie-hzgl0ajulz7",
     alias: "evento-fullstack",
     password: "password123",
-    name: "Event de Desenvolvimento Fullstack",
+    name: "Evento de Desenvolvimento Fullstack",
     date: new Date("2024-12-01T10:00:00Z"),
     location: "São Paulo, SP",
     description:
@@ -188,7 +188,7 @@ const events: IEvent[] = [
     date: new Date("2024-12-10T09:00:00Z"),
     location: "Porto Alegre, RS",
     description:
-      "Event de inauguração da nova loja Estrela com brindes e promoções.",
+      "Evento de inauguração da nova loja Estrela com brindes e promoções.",
     image:
       "https://cosmeticinnovation.com.br/wp-content/uploads/2018/01/estrela_cosmeticos.png",
     backgroundImage:
@@ -247,4 +247,4 @@ const events: IEvent[] = [
   },
 ];
 
-export default events;
+export default mockEvents;

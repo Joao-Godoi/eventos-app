@@ -1,3 +1,3 @@
-import events from "./mockEvents";
+import mockEvents from "./mockEvents";
 
-export { events };
+export { mockEvents };

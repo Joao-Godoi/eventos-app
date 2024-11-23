@@ -1,4 +1,4 @@
-import LogoHome from "@/components/shared/templates/LogoHome";
+import LogoHome from "@/components/templates/LogoHome";
 import Link from "next/link";
 
 export default function Home() {
