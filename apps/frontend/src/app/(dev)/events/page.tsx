@@ -1,4 +1,4 @@
-import { mockEvents } from "@/core";
+import { mockEvents } from "../../../../../../packages/core/src";
 import Image from "next/image";
 import Link from "next/link";
 import QRCode from "react-qr-code";

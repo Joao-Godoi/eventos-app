@@ -1,4 +1,4 @@
-import { IEvent, IGuest } from "@/core";
+import { IEvent, IGuest } from "core";
 import EventInfos from "./EventInfos";
 import AccessByQrCode from "./AccessByQrCode";
 import EventStatistics from "../shared/EventStatistics";

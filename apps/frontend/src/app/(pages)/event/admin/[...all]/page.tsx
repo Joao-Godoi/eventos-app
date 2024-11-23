@@ -1,7 +1,7 @@
 "use client";
 import EventDashboard from "@/components/event/EventDashboard";
 import PasswordEventForm from "@/components/event/PasswordEventForm";
-import { mockEvents, IEvent, IGuest } from "@/core";
+import { mockEvents, IEvent, IGuest } from "core";
 import { use, useCallback, useEffect, useState } from "react";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
