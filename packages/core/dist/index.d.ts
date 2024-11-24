@@ -37,7 +37,7 @@ declare class Alias {
 
 declare class Id {
     static generate(): string;
-    private static generateHash;
+    static isValid(id: string): boolean;
 }
 
 declare class Password {

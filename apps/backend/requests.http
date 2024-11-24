@@ -1,1 +1,58 @@
+###
 GET http://localhost:8080/ping
+
+###
+GET http://localhost:8080/events
+
+###
+GET http://localhost:8080/events/5e25282b-cde5-45ff-9436-c4320d7c2f6f
+
+###
+GET http://localhost:8080/events/validate/evento-fullstack2/5e25282b-cde5-45ff-9436-c4320d7c2f6f
+
+###
+POST http://localhost:8080/events/access
+Content-Type: application/json
+
+{
+    "id": "65965e1c-8055-4795-b4a3-da93bbe97e31",
+    "password": "familia2024"
+}
+
+###
+POST http://localhost:8080/events/casamento-alberto-marina/guest
+Content-Type: application/json
+
+{
+    "name": "João Godoi",
+    "email": "joao.godoi@gmail.com",
+    "confirmed": true,
+    "hasCompany": true,
+    "quantityCompany": 1
+}
+
+###
+POST http://localhost:8080/events
+Content-Type: application/json
+
+{
+    "id": "5e25282b-cde5-45ff-9436-c4320d7c2f6f",
+    "alias": "evento-fullstack2",
+    "password": "full2025",
+    "name": "Evento Fullstack 2",
+    "date": "2025-06-21T13:00",
+    "location": "São Paulo",
+    "description": "Evento Fullstack 2",
+    "image": "https://www.google.com.br",
+    "backgroundImage": "https://www.google.com.br",
+    "limitGuests": 100,
+    "guests": [
+        {
+            "name": "João Godoi",
+            "email": "joao.godoi@gmail.com",
+            "confirmed": true,
+            "hasCompany": true,
+            "quantityCompany": 1
+        }
+    ]
+}

@@ -35,7 +35,7 @@ module.exports = __toCommonJS(src_exports);
 // src/constants/mockEvents.ts
 var mockEvents = [
   {
-    id: "xdlhnq5lwm-esmllp6nie-hzgl0ajulz7",
+    id: "21ff36d7-8fa7-495e-9339-d1687458b660",
     alias: "evento-fullstack",
     password: "password123",
     name: "Evento de Desenvolvimento Fullstack",
@@ -73,7 +73,7 @@ var mockEvents = [
     ]
   },
   {
-    id: "2kis8yvhcvv-8um289gg1x5-zw08j0ciytk",
+    id: "f4b18eb7-13c6-4bde-aa26-a9551a5c31f2",
     alias: "evento-js-avancado",
     password: "js2024",
     name: "Workshop Avan\xE7ado de JavaScript",
@@ -103,7 +103,7 @@ var mockEvents = [
     ]
   },
   {
-    id: "5nef2v2sxhl-80hjydv7qd5-fddre4x4oyr",
+    id: "3a588693-650e-4c6d-868e-9090ff5c07b3",
     alias: "evento-dev-frontend",
     password: "front123",
     name: "Bootcamp de Desenvolvimento Frontend",
@@ -141,7 +141,7 @@ var mockEvents = [
     ]
   },
   {
-    id: "oz9uvdydcd-nql21g818sa-dwvqulair8l",
+    id: "7a0a5640-8e46-404d-bd90-dcba6589d57c",
     alias: "casamento-alberto-marina",
     password: "casamento2024",
     name: "Casamento do Alberto e Marina",
@@ -171,7 +171,7 @@ var mockEvents = [
     ]
   },
   {
-    id: "muowo4f7k89-b93nq8qxqqd-0noa74ohiw9",
+    id: "5e25282b-cde5-45ff-9436-c4320d7c2f6f",
     alias: "aniversario-joao",
     password: "joao2024",
     name: "Anivers\xE1rio do Jo\xE3o - 30 Anos",
@@ -201,7 +201,7 @@ var mockEvents = [
     ]
   },
   {
-    id: "81ks0oozc35-ljvo5a8rqzg-qt28hdn6vge",
+    id: "53ae44ec-30fb-4e5a-9b0b-a9fbedd8e3c1",
     alias: "inauguracao-loja-estrela",
     password: "estrela2024",
     name: "Inaugura\xE7\xE3o da Loja Estrela",
@@ -231,7 +231,7 @@ var mockEvents = [
     ]
   },
   {
-    id: "i3sg2jyquog-vnku4n38v4-6dibxujxr56",
+    id: "65965e1c-8055-4795-b4a3-da93bbe97e31",
     alias: "reuniao-familia-oliveira",
     password: "familia2024",
     name: "Reuni\xE3o da Fam\xEDlia Oliveira",
@@ -300,12 +300,13 @@ var Alias = class {
 };
 
 // src/shared/Id.ts
+var import_uuid = require("uuid");
 var Id = class {
   static generate() {
-    return `${this.generateHash()}-${this.generateHash()}-${this.generateHash()}`;
+    return (0, import_uuid.v4)();
   }
-  static generateHash() {
-    return Math.random().toString(36).substring(2, 15);
+  static isValid(id) {
+    return (0, import_uuid.validate)(id);
   }
 };
 

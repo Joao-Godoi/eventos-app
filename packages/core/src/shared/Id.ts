@@ -1,9 +1,11 @@
+import { v4 as uuid, validate } from "uuid";
+
 export default class Id {
   static generate(): string {
-    return `${this.generateHash()}-${this.generateHash()}-${this.generateHash()}`;
+    return uuid();
   }
 
-  private static generateHash(): string {
-    return Math.random().toString(36).substring(2, 15);
+  static isValid(id: string): boolean {
+    return validate(id);
   }
 }
