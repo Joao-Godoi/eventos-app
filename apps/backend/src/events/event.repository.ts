@@ -7,7 +7,25 @@ export class EventRepository {
   constructor(readonly prismaProvider: PrismaProvider) {}
 
   saveEvent(event: IEvent) {
-    return this.prismaProvider.event.create({ data: event as any });
+    return this.prismaProvider.event.create({
+      data: {
+        ...event,
+        guests: { create: event.guests },
+      },
+    });
+  }
+
+  async isGuestEmailRegistered(
+    eventId: string,
+    email: string,
+  ): Promise<boolean> {
+    const guest = await this.prismaProvider.guest.findFirst({
+      where: {
+        eventId,
+        email,
+      },
+    });
+    return Boolean(guest);
   }
 
   saveGuest(event: IEvent, guest: IGuest) {
@@ -31,7 +49,10 @@ export class EventRepository {
     }) as any;
   }
 
-  async getByAlias(alias: string, complete: boolean): Promise<IEvent> | null {
+  async getByAlias(
+    alias: string,
+    complete: boolean = false,
+  ): Promise<IEvent> | null {
     return this.prismaProvider.event.findUnique({
       select: {
         id: true,

@@ -36,7 +36,6 @@ POST http://localhost:8080/events
 Content-Type: application/json
 
 {
-    "id": "5e25282b-cde5-45ff-9436-c4320d7c2f6f",
     "alias": "evento-fullstack2",
     "password": "full2025",
     "name": "Evento Fullstack 2",
@@ -49,7 +48,7 @@ Content-Type: application/json
     "guests": [
         {
             "name": "João Godoi",
-            "email": "joao.godoi@gmail.com",
+            "email": "joao.godoi2@gmail.com",
             "confirmed": true,
             "hasCompany": true,
             "quantityCompany": 1

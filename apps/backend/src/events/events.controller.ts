@@ -1,4 +1,11 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  HttpException,
+  Param,
+  Post,
+} from '@nestjs/common';
 import {
   completeEvent,
   completeGuest,
@@ -6,70 +13,77 @@ import {
   Id,
   IEvent,
   IGuest,
-  mockEvents,
 } from 'core';
+import { EventRepository } from './event.repository';
 
 @Controller('events')
 export class EventsController {
+  constructor(readonly eventRepository: EventRepository) {}
+
   @Get()
   async getEvents() {
-    return mockEvents.map(this.serializer);
+    const events = await this.eventRepository.getAllEvents();
+    return events.map(this.serializer);
   }
 
   @Get(':idOrAlias')
   async getEvent(@Param('idOrAlias') idOrAlias: string) {
+    let event: IEvent;
     if (Id.isValid(idOrAlias)) {
-      return this.serializer(
-        mockEvents.find((event) => event.id === idOrAlias),
-      );
+      event = await this.eventRepository.getById(idOrAlias, true);
     } else {
-      return this.serializer(
-        mockEvents.find((event) => event.alias === idOrAlias),
-      );
+      event = await this.eventRepository.getByAlias(idOrAlias, true);
     }
+    return this.serializer(event);
   }
 
   @Get('validate/:alias/:id')
   async validateAlias(@Param('alias') alias: string, @Param('id') id: string) {
-    const event = mockEvents.find((event) => event.alias === alias);
+    const event = await this.eventRepository.getByAlias(alias);
     return { valid: !event || event.id === id };
   }
 
   @Post('access')
   async accessEvent(@Body() data: { id: string; password: string }) {
-    const event = mockEvents.find(
-      (event) => event.id === data.id && event.password === data.password,
-    );
-    if (!event) {
-      throw new Error('Senha inválida ou evento não encontrado');
+    const event = await this.eventRepository.getById(data.id, false);
+    if (!event || event.password !== data.password) {
+      throw new HttpException('Senha inválida ou evento não encontrado', 400);
     }
     return this.serializer(event);
   }
 
   @Post(':alias/guest')
   async addGuest(@Param('alias') alias: string, @Body() guest: IGuest) {
-    const event = mockEvents.find((event) => event.alias === alias);
+    const event = await this.eventRepository.getByAlias(alias);
     if (!event) {
-      throw new Error('Evento não encontrado');
+      throw new HttpException('Evento não encontrado', 404);
     }
-    const checkGuest = event.guests.find((g) => g.email === guest.email);
-    if (checkGuest) {
-      throw new Error('E-mail já utilizado');
+    if (!this.isValidEmail(guest.email)) {
+      throw new HttpException('Email inválido', 400);
     }
-    const fullGuest = completeGuest(this.deserializer(guest));
-    event.guests.push(fullGuest);
+
+    const isEmailRegistered = await this.eventRepository.isGuestEmailRegistered(
+      event.id,
+      guest.email,
+    );
+    if (isEmailRegistered) {
+      throw new HttpException('Email já cadastrado', 400);
+    }
+
+    const fullGuest = completeGuest(guest);
+    await this.eventRepository.saveGuest(event, fullGuest);
     return this.serializer(event);
   }
 
   @Post()
   async createEvent(@Body() event: IEvent) {
-    const checkAlias = mockEvents.find((e) => e.alias === event.alias);
-    if (checkAlias) {
-      throw new Error('Alias já utilizado');
+    const existEvent = await this.eventRepository.getByAlias(event.alias);
+    if (existEvent && existEvent.id !== event.id) {
+      throw new HttpException('Alias já utilizado', 400);
     }
 
     const fullEvent = completeEvent(this.deserializer(event));
-    mockEvents.push(fullEvent);
+    await this.eventRepository.saveEvent(fullEvent);
     return this.serializer(fullEvent);
   }
 
@@ -89,5 +103,10 @@ export class EventsController {
       ...event,
       date: DateUtil.parseDate(event.date),
     };
+  }
+
+  private isValidEmail(email: string): boolean {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
   }
 }
