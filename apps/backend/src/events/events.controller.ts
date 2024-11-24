@@ -83,10 +83,8 @@ export class EventsController {
     };
   }
 
-  private deserializer(event: any) {
-    if (!event) {
-      return null;
-    }
+  private deserializer(event: any): IEvent {
+    if (!event) return null;
     return {
       ...event,
       date: DateUtil.parseDate(event.date),
